@@ -2,165 +2,17 @@ import fingers from "./fingers.png";
 import "./App.css";
 import React, { Component } from "react";
 
+const charSets = require("./constCharsets");
+
 //5 different character sets to play with
-const az = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-];
+const az = charSets.az;
+const AZ = charSets.AZ;
+const numbers09 = charSets.numbers09;
+const specialChars = charSets.specialChars;
+const germanChars = charSets.germanChars;
 
-const AZ = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-];
-const numbers09 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-const specialChars = [
-  "!",
-  '"',
-  "§",
-  "$",
-  "%",
-  "&",
-  "/",
-  "(",
-  ")",
-  "=",
-  "?",
-  "+",
-  "#",
-  ",",
-  ".",
-  "-",
-  "*",
-  "'",
-  ";",
-  ":",
-  "_",
-  "@",
-  "€",
-  "{",
-  "}",
-  "[",
-  "]",
-  "<",
-  ">",
-];
-const germanChars = ["ü", "ä", "ö", "ß"];
-
-const fingerToCharBinding = [
-  ["1", "!", "q", "Q", "@", "a", "A", "y", "Y", "<", ">"],
-  ["2", '"', "w", "W", "s", "S", "x", "X"],
-  ["3", "§", "e", "E", "€", "d", "D", "c", "C"],
-  [
-    "4",
-    "$",
-    "r",
-    "R",
-    "f",
-    "F",
-    "v",
-    "V",
-    "5",
-    "%",
-    "t",
-    "T",
-    "g",
-    "G",
-    "b",
-    "B",
-  ],
-  [],
-  [],
-  [
-    "6",
-    "&",
-    "z",
-    "Z",
-    "h",
-    "H",
-    "n",
-    "N",
-    "7",
-    "/",
-    "{",
-    "u",
-    "U",
-    "j",
-    "J",
-    "m",
-    "M",
-  ],
-  ["8", "(", "[", "i", "I", "k", "K", ",", ";"],
-  ["9", ")", "]", "o", "O", "l", "L", ".", ":"],
-  [
-    "0",
-    "=",
-    "}",
-    "p",
-    "P",
-    "ö",
-    "Ö",
-    "-",
-    "_",
-    "ß",
-    "?",
-    "ü",
-    "Ü",
-    "ä",
-    "Ä",
-    "+",
-    "*",
-    "#",
-    "'",
-  ],
-];
+// binding char to finger to use
+const fingerToCharBinding = charSets.fingerToCharBinding;
 
 //styling
 const choosenCharactersButtonColor = "green";
@@ -172,7 +24,7 @@ class App extends Component {
       target: "",
       correctStrokes: 0,
       allStrokes: 0,
-      usedCharacters: ["a", "b", "c"],
+      usedCharacters: [],
       fingersChoosen: [],
       gameStarted: false,
       azActive: false,
@@ -242,7 +94,6 @@ class App extends Component {
     }
 
     //check for fingers only
-
     var finalChars = [];
     for (var i = 0; i < 10; i++) {
       if (fingersdummy[i] === true) {
@@ -311,8 +162,10 @@ class App extends Component {
     return (
       <div className="App">
         <div className="settings">
-          Settings
-          <div className="settings_menupoint">Characters</div>
+          <h2>Settings</h2>
+          <div className="settings_menupoint">
+            Characters ({this.state.usedCharacters.length})
+          </div>
           <div id="character_buttons">
             {" "}
             <button
@@ -411,7 +264,7 @@ class App extends Component {
               üöä
             </button>
           </div>
-          <div className="settings_menupoint">Gamemode</div>
+          <div className="settings_menupoint">Gamemode (TBD)</div>
           <div id="character_buttons">
             {" "}
             <button> Time</button>
@@ -419,28 +272,26 @@ class App extends Component {
           </div>
           <div className="settings_menupoint">Fingers</div>
           <img src={fingers} width="215" height="183"></img>
-          <div> </div>
+          <div>
+            <input id="finger1" type="checkbox" defaultChecked={true} />
+            <input id="finger2" type="checkbox" defaultChecked={true} />
+            <input id="finger3" type="checkbox" defaultChecked={true} />
+            <input id="finger4" type="checkbox" defaultChecked={true} />
+            <input id="finger5" type="checkbox" defaultChecked={true} />
+            <input id="finger6" type="checkbox" defaultChecked={true} />
+            <input id="finger7" type="checkbox" defaultChecked={true} />
+            <input id="finger8" type="checkbox" defaultChecked={true} />
+            <input id="finger9" type="checkbox" defaultChecked={true} />
+            <input id="finger10" type="checkbox" defaultChecked={true} />
+          </div>
         </div>
         <div className="score">
           {this.state.correctStrokes} / {this.state.allStrokes}
         </div>
+        <div id="targetletter">{this.state.target}</div>
         <button id="startgame" onClick={this.startPauseGame}>
           Start game
         </button>
-
-        <div id="targetletter">{this.state.target}</div>
-        <input id="finger1" type="checkbox" defaultChecked={true} />
-        <input id="finger2" type="checkbox" defaultChecked={true} />
-        <input id="finger3" type="checkbox" defaultChecked={true} />
-        <input id="finger4" type="checkbox" defaultChecked={true} />
-        <input id="finger5" type="checkbox" defaultChecked={true} />
-        <input id="finger6" type="checkbox" defaultChecked={true} />
-        <input id="finger7" type="checkbox" defaultChecked={true} />
-        <input id="finger8" type="checkbox" defaultChecked={true} />
-        <input id="finger9" type="checkbox" defaultChecked={true} />
-        <input id="finger10" type="checkbox" defaultChecked={true} />
-
-        <div>{this.state.usedCharacters.length}</div>
       </div>
     );
   }
