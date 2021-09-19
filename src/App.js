@@ -26,6 +26,7 @@ class App extends Component {
       allStrokes: 0,
       usedCharacters: [],
       fingersChoosen: [],
+      lastChar: "",
       gameStarted: false,
       azActive: false,
       AZActive: false,
@@ -110,6 +111,7 @@ class App extends Component {
 
     //final update
     this.setState({ usedCharacters: finalChars });
+    this.setState({ lastChar: "" });
     this.setState({ gameStarted: true });
     this.setState({ correctStrokes: 0 });
     this.setState({ allStrokes: 0 });
@@ -126,9 +128,16 @@ class App extends Component {
   }
 
   getRandomCharacter() {
-    return this.state.usedCharacters[
-      Math.floor(Math.random() * this.state.usedCharacters.length)
-    ];
+    let newChar = "";
+    do {
+      newChar =
+        this.state.usedCharacters[
+          Math.floor(Math.random() * this.state.usedCharacters.length)
+        ];
+    } while (newChar === this.state.lastChar);
+    this.setState({ lastChar: newChar });
+
+    return newChar;
   }
 
   checkInput(event) {
@@ -137,10 +146,7 @@ class App extends Component {
       if (event.key === this.state.target) {
         this.setState({ correctStrokes: this.state.correctStrokes + 1 });
         this.setState({
-          target:
-            this.state.usedCharacters[
-              Math.floor(Math.random() * this.state.usedCharacters.length)
-            ],
+          target: this.getRandomCharacter(),
         });
       }
     }
