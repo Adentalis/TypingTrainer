@@ -1,8 +1,8 @@
-import fingers from "./fingers.png";
-import "./App.css";
-import React, { Component } from "react";
+import fingers from './fingers.png';
+import './App.css';
+import React, { Component } from 'react';
 
-const charSets = require("./constCharsets");
+const charSets = require('./constCharsets');
 
 //5 different character sets to play with
 const az = charSets.az;
@@ -15,24 +15,24 @@ const germanChars = charSets.germanChars;
 const fingerToCharBinding = charSets.fingerToCharBinding;
 
 //styling
-const choosenCharactersButtonColor = "green";
+const choosenCharactersButtonColor = 'green';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      target: "",
+      target: '',
       correctStrokes: 0,
       allStrokes: 0,
       usedCharacters: [],
       fingersChoosen: [],
-      lastChar: "",
+      lastChar: '',
       gameStarted: false,
       azActive: false,
       AZActive: false,
       numbersActive: false,
       specialCharsActive: false,
-      germanActive: false,
+      umlauteActive: false,
     };
     this.checkInput = this.checkInput.bind(this);
     this.startPauseGame = this.startPauseGame.bind(this);
@@ -40,8 +40,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    document.addEventListener("keydown", this.checkInput);
-    document.getElementById("azButton").style.backgroundColor =
+    document.addEventListener('keydown', this.checkInput);
+    document.getElementById('azButton').style.backgroundColor =
       choosenCharactersButtonColor;
     this.setState({
       azActive: true,
@@ -50,16 +50,16 @@ class App extends Component {
 
   startPauseGame() {
     var fingersdummy = [];
-    fingersdummy.push(document.getElementById("finger1").checked);
-    fingersdummy.push(document.getElementById("finger2").checked);
-    fingersdummy.push(document.getElementById("finger3").checked);
-    fingersdummy.push(document.getElementById("finger4").checked);
-    fingersdummy.push(document.getElementById("finger5").checked);
-    fingersdummy.push(document.getElementById("finger6").checked);
-    fingersdummy.push(document.getElementById("finger7").checked);
-    fingersdummy.push(document.getElementById("finger8").checked);
-    fingersdummy.push(document.getElementById("finger9").checked);
-    fingersdummy.push(document.getElementById("finger10").checked);
+    fingersdummy.push(document.getElementById('finger1').checked);
+    fingersdummy.push(document.getElementById('finger2').checked);
+    fingersdummy.push(document.getElementById('finger3').checked);
+    fingersdummy.push(document.getElementById('finger4').checked);
+    fingersdummy.push(document.getElementById('finger5').checked);
+    fingersdummy.push(document.getElementById('finger6').checked);
+    fingersdummy.push(document.getElementById('finger7').checked);
+    fingersdummy.push(document.getElementById('finger8').checked);
+    fingersdummy.push(document.getElementById('finger9').checked);
+    fingersdummy.push(document.getElementById('finger10').checked);
 
     //create all characters array
     var allSelectedChars = [];
@@ -88,7 +88,7 @@ class App extends Component {
       });
     }
 
-    if (this.state.germanActive === true) {
+    if (this.state.umlauteActive === true) {
       germanChars.forEach((e) => {
         allSelectedChars.push(e);
       });
@@ -111,7 +111,7 @@ class App extends Component {
 
     //final update
     this.setState({ usedCharacters: finalChars });
-    this.setState({ lastChar: "" });
+    this.setState({ lastChar: '' });
     this.setState({ gameStarted: true });
     this.setState({ correctStrokes: 0 });
     this.setState({ allStrokes: 0 });
@@ -128,7 +128,7 @@ class App extends Component {
   }
 
   getRandomCharacter() {
-    let newChar = "";
+    let newChar = '';
     do {
       newChar =
         this.state.usedCharacters[
@@ -154,34 +154,34 @@ class App extends Component {
 
   validateInput(event) {
     if (this.state.gameStarted !== true) return false;
-    if (event.key === "Alt") return false;
-    if (event.key === "AltGraph") return false;
-    if (event.key === "Control") return false;
-    if (event.key === "CapsLock") return false;
-    if (event.key === "Shift") return false;
-    if (event.key === "Enter") return false;
-    if (event.key === " ") return false;
+    if (event.key === 'Alt') return false;
+    if (event.key === 'AltGraph') return false;
+    if (event.key === 'Control') return false;
+    if (event.key === 'CapsLock') return false;
+    if (event.key === 'Shift') return false;
+    if (event.key === 'Enter') return false;
+    if (event.key === ' ') return false;
     return true;
   }
 
   render() {
     return (
-      <div className="App">
-        <div className="settings">
+      <div className='App'>
+        <div className='settings'>
           <h2>Settings</h2>
-          <div className="settings_menupoint">
+          <div className='settings_menupoint'>
             Characters ({this.state.usedCharacters.length})
           </div>
-          <div id="character_buttons">
-            {" "}
+          <div id='character_buttons'>
+            {' '}
             <button
-              id="azButton"
+              id='azButton'
               onClick={(event) => {
                 if (
                   event.currentTarget.style.backgroundColor ===
                   choosenCharactersButtonColor
                 ) {
-                  event.currentTarget.style.backgroundColor = "";
+                  event.currentTarget.style.backgroundColor = '';
                   this.setState({ azActive: false });
                 } else {
                   event.currentTarget.style.backgroundColor =
@@ -190,17 +190,17 @@ class App extends Component {
                 }
               }}
             >
-              {" "}
+              {' '}
               a-z
             </button>
             <button
-              id="AZButton"
+              id='AZButton'
               onClick={(event) => {
                 if (
                   event.currentTarget.style.backgroundColor ===
                   choosenCharactersButtonColor
                 ) {
-                  event.currentTarget.style.backgroundColor = "";
+                  event.currentTarget.style.backgroundColor = '';
                   this.setState({ AZActive: false });
                 } else {
                   event.currentTarget.style.backgroundColor =
@@ -209,17 +209,17 @@ class App extends Component {
                 }
               }}
             >
-              {" "}
+              {' '}
               A-Z
             </button>
             <button
-              id="numbersButton"
+              id='numbersButton'
               onClick={(event) => {
                 if (
                   event.currentTarget.style.backgroundColor ===
                   choosenCharactersButtonColor
                 ) {
-                  event.currentTarget.style.backgroundColor = "";
+                  event.currentTarget.style.backgroundColor = '';
                   this.setState({ numbersActive: false });
                 } else {
                   event.currentTarget.style.backgroundColor =
@@ -228,17 +228,17 @@ class App extends Component {
                 }
               }}
             >
-              {" "}
+              {' '}
               0-9
             </button>
             <button
-              id="specialButton"
+              id='specialButton'
               onClick={(event) => {
                 if (
                   event.currentTarget.style.backgroundColor ===
                   choosenCharactersButtonColor
                 ) {
-                  event.currentTarget.style.backgroundColor = "";
+                  event.currentTarget.style.backgroundColor = '';
                   this.setState({ specialCharsActive: false });
                 } else {
                   event.currentTarget.style.backgroundColor =
@@ -247,55 +247,49 @@ class App extends Component {
                 }
               }}
             >
-              {" "}
+              {' '}
               !?*
             </button>
             <button
-              id="germanButton"
+              id='germanButton'
               onClick={(event) => {
                 if (
                   event.currentTarget.style.backgroundColor ===
                   choosenCharactersButtonColor
                 ) {
-                  event.currentTarget.style.backgroundColor = "";
-                  this.setState({ germanActive: false });
+                  event.currentTarget.style.backgroundColor = '';
+                  this.setState({ umlauteActive: false });
                 } else {
                   event.currentTarget.style.backgroundColor =
                     choosenCharactersButtonColor;
-                  this.setState({ germanActive: true });
+                  this.setState({ umlauteActive: true });
                 }
               }}
             >
-              {" "}
-              üöä
+              {' '}
+              üöäß
             </button>
           </div>
-          <div className="settings_menupoint">Gamemode (TBD)</div>
-          <div id="character_buttons">
-            {" "}
-            <button> Time</button>
-            <button> Strokes</button>
-          </div>
-          <div className="settings_menupoint">Fingers</div>
-          <img src={fingers} width="215" height="183"></img>
+          <div className='settings_menupoint'>Fingers</div>
+          <img src={fingers} width='215' height='183'></img>
           <div>
-            <input id="finger1" type="checkbox" defaultChecked={true} />
-            <input id="finger2" type="checkbox" defaultChecked={true} />
-            <input id="finger3" type="checkbox" defaultChecked={true} />
-            <input id="finger4" type="checkbox" defaultChecked={true} />
-            <input id="finger5" type="checkbox" defaultChecked={true} />
-            <input id="finger6" type="checkbox" defaultChecked={true} />
-            <input id="finger7" type="checkbox" defaultChecked={true} />
-            <input id="finger8" type="checkbox" defaultChecked={true} />
-            <input id="finger9" type="checkbox" defaultChecked={true} />
-            <input id="finger10" type="checkbox" defaultChecked={true} />
+            <input id='finger1' type='checkbox' defaultChecked={true} />
+            <input id='finger2' type='checkbox' defaultChecked={true} />
+            <input id='finger3' type='checkbox' defaultChecked={true} />
+            <input id='finger4' type='checkbox' defaultChecked={true} />
+            <input id='finger5' type='checkbox' defaultChecked={true} />
+            <input id='finger6' type='checkbox' defaultChecked={true} />
+            <input id='finger7' type='checkbox' defaultChecked={true} />
+            <input id='finger8' type='checkbox' defaultChecked={true} />
+            <input id='finger9' type='checkbox' defaultChecked={true} />
+            <input id='finger10' type='checkbox' defaultChecked={true} />
           </div>
         </div>
-        <div className="score">
+        <div className='score'>
           {this.state.correctStrokes} / {this.state.allStrokes}
         </div>
-        <div id="targetletter">{this.state.target}</div>
-        <button id="startgame" onClick={this.startPauseGame}>
+        <div id='targetletter'>{this.state.target}</div>
+        <button id='startgame' onClick={this.startPauseGame}>
           Start game
         </button>
       </div>
